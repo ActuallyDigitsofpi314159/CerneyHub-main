@@ -2,6 +2,9 @@
 // ---- Password gate ----
 const CORRECT = 'html5';
 
+const BASE =
+"https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/";
+
 function checkPassword(){
   const val = document.getElementById('pw-input').value;
   if(val.toLowerCase() === CORRECT.toLowerCase()){
@@ -488,17 +491,15 @@ function launchBadBrowser(){
     );
 
     if (!win) {
-      alert("Popup blocked. Allow popups.");
+      alert("Popup blocked");
       return;
     }
 
-    const url =
-      "https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/badbrowser.html?v=" +
-      Date.now();
+    const url = BASE + "badbrowser.html?v=" + Date.now();
 
     fetch(url)
       .then(r => {
-        if (!r.ok) throw new Error("Failed to load Bad Browser");
+        if (!r.ok) throw new Error("HTTP " + r.status);
         return r.text();
       })
       .then(html => {
@@ -507,10 +508,9 @@ function launchBadBrowser(){
         win.document.close();
       })
       .catch(err => {
-        win.document.write("<h1>Error loading browser</h1><p>" + err.message + "</p>");
+        win.document.write("<h1>Bad Browser failed</h1><p>" + err.message + "</p>");
       });
 
-    try { win.focus(); } catch(e) {}
   },150);
 }
 
@@ -524,17 +524,15 @@ function launchMineKhan(){
     );
 
     if (!win) {
-      alert("Popup blocked. Allow popups to launch MineKhan.");
+      alert("Popup blocked");
       return;
     }
 
-    const url =
-      "https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/mineKhan.html?v=" +
-      Date.now();
+    const url = BASE + "mineKhan.html?v=" + Date.now();
 
     fetch(url)
       .then(r => {
-        if (!r.ok) throw new Error("Failed to load MineKhan");
+        if (!r.ok) throw new Error("HTTP " + r.status);
         return r.text();
       })
       .then(html => {
@@ -543,9 +541,8 @@ function launchMineKhan(){
         win.document.close();
       })
       .catch(err => {
-        win.document.write("<h1>Failed to load MineKhan</h1><p>" + err.message + "</p>");
+        win.document.write("<h1>MineKhan failed to load</h1><p>" + err.message + "</p>");
       });
 
-    try { win.focus(); } catch(e) {}
   },150);
 }
