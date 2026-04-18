@@ -480,34 +480,16 @@ function launchDumLLM(){
 // ---- Bad Browser ----
 function launchBadBrowser(){
   flash();
-  setTimeout(async ()=>{
+  setTimeout(()=>{
     const win = window.open("about:blank","badbrowser","width=1280,height=720,menubar=no,toolbar=no,location=no,status=no");
-    
-    try {
-      const repo = "ActuallyDigitsofpi314159/CerneyHub-main";
-      const folder = "CerneyHub-main";
-      const base = "https://cdn.jsdelivr.net/gh/" + repo + "@main/" + folder + "/";
-      
-      let version = Date.now();
-      try {
-        const versionRes = await fetch(base + "latest.json?v=" + Date.now());
-        if (versionRes.ok) {
-          const data = await versionRes.json();
-          if (data.version) version = data.version;
-        }
-      } catch (e) {
-        console.warn("latest.json failed, using fallback cache bust");
-      }
-      
-      const response = await fetch(base + "badbrowser.html?v=" + version);
-      const html = await response.text();
-      win.document.open();
-      win.document.write(html);
-      win.document.close();
-    } catch (err) {
-      console.error("Failed to load badbrowser.html", err);
-    }
-    
+    fetch("https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/badbrowser.html?v=" + Date.now())
+      .then(response => response.text())
+      .then(html => {
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
+      })
+      .catch(err => console.error("Failed to load badbrowser.html", err));
     try{win.focus();}catch(e){}
   },150);
 }
@@ -515,34 +497,16 @@ function launchBadBrowser(){
 // ---- MineKhan ----
 function launchMineKhan(){
   flash();
-  setTimeout(async ()=>{
+  setTimeout(()=>{
     const win = window.open("about:blank","minekhan","width=1280,height=720,menubar=no,toolbar=no,location=no,status=no");
-    
-    try {
-      const repo = "ActuallyDigitsofpi314159/CerneyHub-main";
-      const folder = "CerneyHub-main";
-      const base = "https://cdn.jsdelivr.net/gh/" + repo + "@main/" + folder + "/";
-      
-      let version = Date.now();
-      try {
-        const versionRes = await fetch(base + "latest.json?v=" + Date.now());
-        if (versionRes.ok) {
-          const data = await versionRes.json();
-          if (data.version) version = data.version;
-        }
-      } catch (e) {
-        console.warn("latest.json failed, using fallback cache bust");
-      }
-      
-      const response = await fetch(base + "mineKhan.html?v=" + version);
-      const html = await response.text();
-      win.document.open();
-      win.document.write(html);
-      win.document.close();
-    } catch (err) {
-      console.error("Failed to load mineKhan.html", err);
-    }
-    
+    fetch("https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/mineKhan.html?v=" + Date.now())
+      .then(response => response.text())
+      .then(html => {
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
+      })
+      .catch(err => console.error("Failed to load mineKhan.html", err));
     try{win.focus();}catch(e){}
   },150);
 }
