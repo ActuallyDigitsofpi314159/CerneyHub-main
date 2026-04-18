@@ -11,7 +11,6 @@ function checkPassword(){
       gate.style.display = 'none';
       const main = document.getElementById('main');
       main.style.display = 'flex';
-      spawnPixels();
     }, 480);
   } else {
     const inp = document.getElementById('pw-input');
@@ -28,22 +27,6 @@ function checkPassword(){
 document.getElementById('pw-input').addEventListener('keydown', e => {
   if(e.key === 'Enter') checkPassword();
 });
-
-function spawnPixels(){
-  const colors = ['#ff2d2d','#ffd700','#b44dff','#00e5cc','#39ff14'];
-  for(let i=0;i<30;i++){
-    const p = document.createElement('div');
-    p.className = 'pixel';
-    p.style.cssText = `
-      left:${Math.random()*100}vw;
-      bottom:${Math.random()*-20}px;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      animation-delay:${Math.random()*8}s;
-      animation-duration:${4+Math.random()*6}s;
-    `;
-    document.body.appendChild(p);
-  }
-}
 
 function flash(){ const f=document.createElement('div'); f.className='flash'; document.body.appendChild(f); setTimeout(()=>f.remove(),500); }
 
@@ -516,7 +499,7 @@ function launchMineKhan(){
   flash();
   setTimeout(()=>{
     const win = window.open("about:blank","minekhan","width=1280,height=720,menubar=no,toolbar=no,location=no,status=no");
-    fetch("https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub@main/mineKhan.html")
+    fetch("https://raw.githubusercontent.com/ActuallyDigitsofpi314159/CerneyHub/main/mineKhan.html")
       .then(response => response.text())
       .then(html => {
         win.document.open();
