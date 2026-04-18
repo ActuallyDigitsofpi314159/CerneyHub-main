@@ -7,19 +7,6 @@
 <!-- CSS will be loaded dynamically with cache busting parameter -->
 <link id="style-link" rel="stylesheet">
 
-<script>
-// Force cache busting with random parameter - bypasses jsdelivr cache completely
-const cacheBust = Math.random().toString(36).substr(2, 9);
-document.getElementById("style-link").href = 
-  "https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/stylingPart.css?v=" + cacheBust;
-
-// Load JS with cache busting
-const script = document.createElement("script");
-script.src = "https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/logicPart.js?v=" + cacheBust;
-script.defer = true;
-document.body.appendChild(script);
-</script>
-
 </head>
 <body>
 
@@ -95,6 +82,18 @@ document.body.appendChild(script);
 </footer>
 
 </div>
+
+<script>
+// Force cache busting with random parameter - bypasses jsdelivr cache completely
+const cacheBust = Math.random().toString(36).substr(2, 9);
+document.getElementById("style-link").href = 
+  "https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/stylingPart.css?v=" + cacheBust;
+
+// Load JS with cache busting
+const script = document.createElement("script");
+script.src = "https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/logicPart.js?v=" + cacheBust;
+document.body.appendChild(script);
+</script>
 
 </body>
 </html>
