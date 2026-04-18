@@ -23,9 +23,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     font-family: 'Inter', sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
     color: rgba(255,255,255,0.9);
   }
@@ -47,6 +47,7 @@
       linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
     background-size: 60px 60px;
     z-index: 0;
+    pointer-events: none;
   }
 
 
@@ -163,14 +164,21 @@
   }
 
   /* ---- Main content ---- */
-  #main { display: none; width: 100%; flex-direction: column; align-items: center; }
+  #main {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 24px 80px;
+    scroll-behavior: smooth;
+  }
 
   /* ---- Header ---- */
   header {
     position: relative;
     z-index: 10;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
   .logo {
     font-family: 'JetBrains Mono', monospace;
@@ -205,11 +213,10 @@
     position: relative;
     z-index: 10;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    max-width: 1100px;
     width: 100%;
-    padding: 0 24px;
   }
 
   .card {
@@ -217,12 +224,12 @@
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: var(--border-radius);
-    padding: 32px 28px;
+    padding: 36px 32px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: var(--shadow);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
   }
   .card::before {
     content: '';
@@ -317,7 +324,8 @@
   .controls-tip {
     position: relative;
     z-index: 10;
-    margin-top: 40px;
+    margin-top: 60px;
+    margin-bottom: 40px;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255,255,255,0.1);
@@ -377,7 +385,8 @@
   footer {
     position: relative;
     z-index: 10;
-    margin-top: 40px;
+    margin-top: 60px;
+    padding: 20px;
     font-size: 11px;
     color: rgba(255,255,255,0.5);
     letter-spacing: 0.02em;
@@ -395,3 +404,97 @@
     animation: flashOut 0.5s ease forwards;
   }
   @keyframes flashOut { 0%{opacity:1} 100%{opacity:0} }
+
+  /* ---- Scrollbar styling ---- */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(6,182,212,0.3);
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(6,182,212,0.6);
+  }
+
+  /* ---- Responsive Design ---- */
+  @media (max-width: 768px) {
+    body {
+      justify-content: flex-start;
+    }
+    
+    #main {
+      padding: 40px 16px 60px;
+    }
+
+    header {
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-size: 24px;
+    }
+
+    .sub {
+      font-size: 13px;
+    }
+
+    .blinking-note {
+      font-size: 11px;
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 100%;
+    }
+
+    .card {
+      padding: 28px 24px;
+    }
+
+    .controls-tip {
+      max-width: 100%;
+      padding: 20px 24px;
+    }
+
+    .pw-box {
+      min-width: 280px;
+      padding: 32px 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #main {
+      padding: 30px 12px 50px;
+    }
+
+    .logo {
+      font-size: 20px;
+    }
+
+    .card {
+      padding: 24px 20px;
+    }
+
+    .card-icon {
+      font-size: 40px;
+    }
+
+    .card-title {
+      font-size: 12px;
+    }
+
+    .controls-tip summary {
+      font-size: 12px;
+    }
+
+    .binds {
+      grid-template-columns: 1fr;
+      gap: 8px 12px;
+    }
+  }

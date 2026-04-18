@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>C-Hub</title>
-<link rel="stylesheet" href="https://raw.githubusercontent.com/ActuallyDigitsofpi314159/CerneyHub/main/stylingPart.css">
-<!-- <link rel="stylesheet" href="stylingPart.css"> -->
+
+<!-- CSS -->
+<link id="style-link" rel="stylesheet">
+
 </head>
 <body>
 
@@ -36,10 +38,7 @@
   <div class="card card-mario" onclick="launchMario()">
     <span class="card-icon">🍄</span>
     <div class="card-title">Super Mario<br>64</div>
-    <div class="card-desc">
-      WebGL port of Super Mario 64<br>
-      (1996)
-    </div>
+    <div class="card-desc">WebGL port of Super Mario 64<br>(1996)</div>
     <span class="badge badge-great">✔ FASTEST BY FAR</span>
     <div class="launch-arrow">▶</div>
   </div>
@@ -47,10 +46,7 @@
   <div class="card card-e112" onclick="launchE112()">
     <span class="card-icon">⛏️</span>
     <div class="card-title">Eaglercraft<br>1.12</div>
-    <div class="card-desc">
-      Minecraft 1.12.2<br>
-      (2017)
-    </div>
+    <div class="card-desc">Minecraft 1.12.2<br>(2017)</div>
     <span class="badge badge-ok">🐢 Very Slow &amp; Unstable</span>
     <div class="launch-arrow">▶</div>
   </div>
@@ -58,10 +54,7 @@
   <div class="card card-dumllm" onclick="launchDumLLM()">
     <span class="card-icon">🤖</span>
     <div class="card-title">dumLLM</div>
-    <div class="card-desc">
-      Open-source LLMs running<br>
-      directly on your hardware
-    </div>
+    <div class="card-desc">Open-source LLMs running<br>directly on your hardware</div>
     <span class="badge badge-ai">✦ It's dum alright</span>
     <div class="launch-arrow">▶</div>
   </div>
@@ -69,10 +62,7 @@
   <div class="card card-badbrowser" onclick="launchBadBrowser()">
     <span class="card-icon">🌐</span>
     <div class="card-title">Bad Browser</div>
-    <div class="card-desc">
-      A sketchy little<br>
-      browser thing
-    </div>
+    <div class="card-desc">A sketchy little<br>browser thing</div>
     <span class="badge badge-browser">⚙ probably broken ngl</span>
     <div class="launch-arrow">▶</div>
   </div>
@@ -80,40 +70,58 @@
   <div class="card card-minekhan" onclick="launchMineKhan()">
     <span class="card-icon">⛏️</span>
     <div class="card-title">MineKhan</div>
-    <div class="card-desc">
-      Minecraft clone in<br>
-      your browser!
-    </div>
+    <div class="card-desc">Minecraft clone in<br>your browser!</div>
     <span class="badge badge-game">🎮 Play Now</span>
     <div class="launch-arrow">▶</div>
   </div>
 
 </div>
 
-<details class="controls-tip">
-  <summary>Mario 64 — Key Bindings</summary>
-  <div class="binds">
-    <div class="bind"><span class="key">W A S D</span> Move</div>
-    <div class="bind"><span class="key">↑ ↓ ← →</span> Camera</div>
-    <div class="bind"><span class="key">Space</span> Jump (A)</div>
-    <div class="bind"><span class="key">E</span> Punch (B)</div>
-    <div class="bind"><span class="key">Shift</span> Crouch (Z)</div>
-    <div class="bind"><span class="key">Ctrl</span> Zoom Cam (L)</div>
-    <div class="bind"><span class="key">Enter</span> Pause</div>
-    <div class="bind"><span class="key">LMB</span> C-Button</div>
-  </div>
-</details>
-
 <footer>
   FOR DEMONSTRATIONAL PURPOSES ONLY!!!<br>
-  UNDER NO CIRCUMSTANCES ARE YOU ALLOWED TO SHARE THIS<br>
-  WITHOUT MY APPROVAL OR USE THIS IN SCHOOL.<br>
-  IF I SEE EITHER TERM BROKEN, I CAN AND WILL SHUT<br>THIS DOWN.
 </footer>
 
-</div><!-- end #main -->
+</div>
 
-<script src="https://raw.githubusercontent.com/ActuallyDigitsofpi314159/CerneyHub/main/logicPart.js" async='true' crossorigin='anonymous'></script>
-<!-- <script src="logicPart.js" async='true' crossorigin='anonymous'></script> -->
+<!-- JS -->
+<script id="logic-script"></script>
+
+<script>
+(async () => {
+  const repo = "ActuallyDigitsofpi314159/CerneyHub-main";
+  const folder = "CerneyHub-main";
+
+  const base =
+    "https://cdn.jsdelivr.net/gh/" +
+    repo +
+    "@main/" +
+    folder +
+    "/";
+
+  let version = Date.now();
+
+  try {
+    const res = await fetch(base + "latest.json?v=" + Date.now());
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data.version) version = data.version;
+    }
+  } catch (e) {
+    console.warn("latest.json failed, using fallback cache bust");
+  }
+
+  // CSS
+  document.getElementById("style-link").href =
+    base + "stylingPart.css?v=" + version;
+
+  // JS
+  const s = document.createElement("script");
+  s.src = base + "logicPart.js?v=" + version;
+  s.defer = true;
+  document.body.appendChild(s);
+})();
+</script>
+
 </body>
 </html>
