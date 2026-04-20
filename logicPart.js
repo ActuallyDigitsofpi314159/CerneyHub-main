@@ -87,48 +87,7 @@ function launchApp(filename, title) {
 
 // ---- Mario 64 ----
 function launchMario(){
-  flash();
-
-  setTimeout(()=>{
-    const win = window.open("about:blank","sm64",
-      "width=1280,height=720,menubar=no,toolbar=no,location=no,status=no"
-    );
-
-    win.document.open();
-    win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>SM64</title>
-<style>
-body,html{margin:0;overflow:hidden;background:black;color:white;font-family:sans-serif;}
-#overlay{position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-size:26px;cursor:pointer;padding:20px;text-align:center;}
-canvas{display:none;width:100vw;height:100vh;}
-</style></head><body>
-
-<div id="overlay">Click to start Super Mario 64</div>
-<canvas id="canvas"></canvas>
-
-<script>
-const overlay=document.getElementById('overlay'),canvas=document.getElementById('canvas');
-
-overlay.addEventListener('click',async function go(){
-  const a=new (window.AudioContext||window.webkitAudioContext)();
-  await a.resume().catch(()=>{});
-
-  overlay.style.display='none';
-  canvas.style.display='block';
-
-  window.Module={canvas:canvas};
-
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/gh/ArkShocer/sm64@main/sm64.us.f3dex2e.js';
-
-  document.body.appendChild(s);
-});
-<\/script>
-
-</body></html>`);
-
-    win.document.close();
-    try{win.focus();}catch(e){}
-  },150);
+  launchApp("mario64.html", "sm64");
 }
 
 // ---- Eaglercraft ----
