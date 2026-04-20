@@ -3,7 +3,7 @@ const CORRECT = 'html5';
 
 // IMPORTANT: base path (case-sensitive, must match GitHub exactly)
 const BASE =
-"https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub-main@main/CerneyHub-main/";
+"https://cdn.jsdelivr.net/gh/ActuallyDigitsofpi314159/CerneyHub@latest/";
 
 // Cache busting with timestamp for fresh loads
 const CACHE_BUST = Date.now();
@@ -49,39 +49,40 @@ function flash(){
   setTimeout(()=>f.remove(),500);
 }
 
-// ---- SAFE WINDOW LOADER (FIXED PATTERN) ----
-async function openApp(url, title, fallbackTitle){
-  const win = window.open("about:blank", title,
-    "width=1280,height=720,menubar=no,toolbar=no,location=no,status=no"
-  );
+// ---- GENERIC APP LAUNCHER ----
+function launchApp(filename, title) {
+  flash();
+  
+  setTimeout(() => {
+    const win = window.open(
+      "about:blank",
+      title,
+      "width=1280,height=720,menubar=no,toolbar=no,location=no,status=no"
+    );
 
-  if (!win) {
-    alert("Popup blocked. Enable popups.");
-    return;
-  }
-
-  try {
-    const res = await fetch(url);
-
-    if (!res.ok) {
-      throw new Error("HTTP " + res.status);
+    if (!win) {
+      alert("Popup blocked. Enable popups.");
+      return;
     }
 
-    const html = await res.text();
+    const url = BASE + filename + "?v=" + CACHE_BUST;
 
-    win.document.open();
-    win.document.write(html);
-    win.document.close();
+    fetch(url)
+      .then(r => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      })
+      .then(html => {
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
+      })
+      .catch(err => {
+        win.document.write(`<h1>${title} failed to load</h1><p>${err.message}</p><p>URL: ${url}</p>`);
+      });
 
-  } catch (err) {
-    win.document.write(`
-      <h1>${fallbackTitle} failed to load</h1>
-      <p>${err.message}</p>
-      <p>URL: ${url}</p>
-    `);
-  }
-
-  try { win.focus(); } catch(e) {}
+    try { win.focus(); } catch(e) {}
+  }, 150);
 }
 
 // ---- Mario 64 ----
@@ -177,67 +178,26 @@ async function play(btn){
 
 // ---- dumLLM ----
 function launchDumLLM(){
-  flash();
-  setTimeout(()=>{ window.open("dumLLM.html","_blank"); },150);
+  launchApp("dumLLM.html", "dumLLM");
 }
 
 // ---- Bad Browser ----
 function launchBadBrowser(){
-  flash();
-  setTimeout(()=>{
-    const win = window.open(
-      "about:blank",
-      "badbrowser",
-      "width=1280,height=720,menubar=no,toolbar=no,location=no,status=no"
-    );
-
-    if (!win) return alert("Popup blocked");
-
-    fetch(BASE + "badbrowser.html?v=" + CACHE_BUST)
-      .then(r => {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.text();
-      })
-      .then(html => {
-        win.document.open();
-        win.document.write(html);
-        win.document.close();
-      })
-      .catch(err => {
-        win.document.write("<h1>Failed to load Bad Browser</h1><p>" + err.message + "</p>");
-      });
-
-    try{win.focus();}catch(e){}
-  },150);
+  launchApp("badbrowser.html", "badbrowser");
 }
 
 
 // ---- MineKhan ----
 function launchMineKhan(){
-  flash();
-  setTimeout(()=>{
-    const win = window.open(
-      "about:blank",
-      "minekhan",
-      "width=1280,height=720,menubar=no,toolbar=no,location=no,status=no"
-    );
+  launchApp("mineKhan.html", "minekhan");
+}
 
-    if (!win) return alert("Popup blocked");
+// ---- Karlson ----
+function launchKarlson(){
+  launchApp("karlson.html", "karlson");
+}
 
-    fetch(BASE + "mineKhan.html?v=" + CACHE_BUST)
-      .then(r => {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.text();
-      })
-      .then(html => {
-        win.document.open();
-        win.document.write(html);
-        win.document.close();
-      })
-      .catch(err => {
-        win.document.write("<h1>Failed to load MineKhan</h1><p>" + err.message + "</p>");
-      });
-
-    try{win.focus();}catch(e){}
-  },150);
+// ---- BSS ----
+function launchBSS(){
+  launchApp("BSS.html", "bss");
 }
